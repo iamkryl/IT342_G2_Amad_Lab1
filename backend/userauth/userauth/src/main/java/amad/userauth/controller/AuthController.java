@@ -1,13 +1,19 @@
 package amad.userauth.controller;
 
-import amad.userauth.model.User;
-import amad.userauth.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import amad.userauth.model.User;
+import amad.userauth.service.AuthService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -17,10 +23,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    /**
-     * Register a new user
-     * Matches diagram: registerUser(User user): void
-     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(
             @RequestParam String firstName,
@@ -36,23 +38,17 @@ public class AuthController {
         }
     }
 
-    /**
-     * Login user
-     * Matches diagram: loginUser(String email, String password): String
-     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(
             @RequestParam String email,
             @RequestParam String password
     ) {
         try {
-            // Get token from service
+
             String token = authService.login(email, password);
 
-            // Get user info by token
             User user = authService.getUserByToken(token);
 
-            // Create response
             Map<String, String> response = new HashMap<>();
             response.put("token", token);
             response.put("email", user.getEmail());
@@ -65,10 +61,6 @@ public class AuthController {
         }
     }
 
-    /**
-     * Logout user
-     * Matches diagram: logoutUser(String token): void
-     */
     @PostMapping("/logout")
     public ResponseEntity<?> logoutUser(@RequestParam String token) {
         try {
@@ -79,10 +71,6 @@ public class AuthController {
         }
     }
 
-    /**
-     * Get current user profile
-     * Matches diagram: getUserProfile(String token): User
-     */
     @GetMapping("/user/me")
     public ResponseEntity<?> getUserProfile(@RequestParam String token) {
         try {

@@ -7,32 +7,9 @@
 - Create ReactJS frontend folder structure [commit: 421fb26]
 - Create /docs folder [commit: 421fb26]
 - Update README.md with project details [commit: 421fb26]
-
-## IN-PROGRESS
-- Backend:
-  - /api/auth/register endpoint
-  - /api/auth/login endpoint
-  - /api/user/me protected endpoint
-  - Database connection (MySQL)
-  - Password encryption (BCrypt)
-- Web Application (ReactJS):
-  - Register page
-  - Login page
-  - Dashboard/Profile page (protected)
-  - Logout functionality
-- Documentation (FRS Partial):
-  - ERD included in PDF
-  - UML diagrams included in PDF
-  - Web UI screenshots:
-    - Register
-    - Login
-    - Dashboard/Profile
-    - Logout
+- Web Application (ReactJS) pages: Register, Login, Dashboard/Profile, Logout [commit: 6573215]
+- Backend endpoints implemented: /api/auth/register, /api/auth/login, /api/user/me [commit: 6573215]
+- Documentation (FRS Partial) updated with ERD, UML diagrams, and web UI screenshots [commit: 6573215]
 
 ## TODO
-- Create payload/request folder and add request DTOs
-- Implement backend logic for registration and login
-- Connect frontend to backend APIs
-- Test protected routes in ReactJS
-- Finalize FRS documentation with screenshots of working features
 - Mobile application (to be done in next lab)
