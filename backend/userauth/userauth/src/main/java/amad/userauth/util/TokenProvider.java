@@ -25,28 +25,18 @@ public class TokenProvider {
         return token;
     }
 
-    /**
-     * Validate if a token is valid
-     */
     public boolean validateToken(String token) {
         return activeTokens.containsKey(token);
     }
 
-    /**
-     * Get user ID from token
-     */
     public Long getUserIdFromToken(String token) {
         return activeTokens.get(token);
     }
 
-    /**
-     * Revoke/invalidate a token (for logout)
-     */
     public void revokeToken(String token) {
         activeTokens.remove(token);
     }
 
-    // Getters for jwt properties (matching your diagram)
     public String getJwtSecret() {
         return jwtSecret;
     }
