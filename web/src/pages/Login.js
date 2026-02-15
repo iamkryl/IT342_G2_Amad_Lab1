@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -24,7 +25,6 @@ function Login() {
         params: formData
       });
       
-      // Save user data
       localStorage.setItem('user', JSON.stringify(response.data));
       
       alert('Login successful!');
@@ -35,39 +35,49 @@ function Login() {
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', border: '1px solid #ccc', borderRadius: '5px' }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            style={{ width: '100%', padding: '10px', margin: '10px 0', boxSizing: 'border-box' }}
-          />
-        </div>
-        <div>
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            style={{ width: '100%', padding: '10px', margin: '10px 0', boxSizing: 'border-box' }}
-          />
-        </div>
-        <button type="submit" style={{ width: '100%', padding: '10px', background: '#28a745', color: 'white', border: 'none', cursor: 'pointer', borderRadius: '3px' }}>
-          Login
-        </button>
-      </form>
-      {message && <p style={{ color: 'red', marginTop: '10px' }}>{message}</p>}
-      <p style={{ marginTop: '15px', textAlign: 'center' }}>
-        Don't have an account? <a href="/register">Register here</a>
-      </p>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Welcome Back</h2>
+        <p className="login-subtitle">Login to your account</p>
+        
+        <form onSubmit={handleSubmit}>
+          <div className="login-input-group">
+            <label className="login-label">Email Address</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="login-input"
+            />
+          </div>
+
+          <div className="login-input-group">
+            <label className="login-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="login-input"
+            />
+          </div>
+
+          <button type="submit" className="login-button">
+            Login
+          </button>
+        </form>
+
+        {message && <p className="login-error-message">{message}</p>}
+
+        <p className="login-footer">
+          Don't have an account? <a href="/register" className="login-link">Register here</a>
+        </p>
+      </div>
     </div>
   );
 }

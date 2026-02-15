@@ -17,6 +17,10 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * Register a new user
+     * Matches diagram: registerUser(User user): void
+     */
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(
             @RequestParam String firstName,
@@ -32,17 +36,25 @@ public class AuthController {
         }
     }
 
+    /**
+     * Login user
+     * Matches diagram: loginUser(String email, String password): String
+     */
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(
             @RequestParam String email,
             @RequestParam String password
     ) {
         try {
-            User user = authService.loginUser(email, password);
+            // Get token from service
+            String token = authService.login(email, password);
 
-            // Create response map
+            // Get user info by token
+            User user = authService.getUserByToken(token);
+
+            // Create response
             Map<String, String> response = new HashMap<>();
-            response.put("token", "dummy-token-" + user.getUserId());
+            response.put("token", token);
             response.put("email", user.getEmail());
             response.put("firstName", user.getFirstName());
             response.put("lastName", user.getLastName());
@@ -53,10 +65,28 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/user/me")
-    public ResponseEntity<?> getCurrentUser(@RequestParam Long userId) {
+    /**
+     * Logout user
+     * Matches diagram: logoutUser(String token): void
+     */
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(@RequestParam String token) {
         try {
-            User user = authService.getUserById(userId);
+            authService.logout(token);
+            return ResponseEntity.ok("Logged out successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    /**
+     * Get current user profile
+     * Matches diagram: getUserProfile(String token): User
+     */
+    @GetMapping("/user/me")
+    public ResponseEntity<?> getUserProfile(@RequestParam String token) {
+        try {
+            User user = authService.getUserByToken(token);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

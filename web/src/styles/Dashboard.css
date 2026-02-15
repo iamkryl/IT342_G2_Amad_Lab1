@@ -1,0 +1,123 @@
+/* Dashboard Page Styles */
+
+.dashboard-container {
+  min-height: calc(100vh - 70px);
+  background-color: #F3F4F6;
+  padding: 20px;
+}
+
+.dashboard-content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.dashboard-welcome-banner {
+  background: linear-gradient(135deg, #1D4ED8 0%, #60A5FA 100%);
+  border-radius: 12px;
+  padding: 40px;
+  margin-bottom: 30px;
+  color: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-welcome-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.dashboard-welcome-subtitle {
+  font-size: 16px;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.dashboard-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.dashboard-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #111827;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #60A5FA;
+  padding-bottom: 10px;
+}
+
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-stat-card {
+  background-color: #F3F4F6;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.dashboard-stat-icon {
+  font-size: 32px;
+}
+
+.dashboard-stat-content {
+  flex: 1;
+}
+
+.dashboard-stat-label {
+  font-size: 12px;
+  color: #6B7280;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.dashboard-stat-value {
+  font-size: 16px;
+  color: #111827;
+  font-weight: 600;
+  margin: 0;
+}
+
+.dashboard-info-row {
+  display: flex;
+  padding: 15px 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.dashboard-info-row:last-child {
+  border-bottom: none;
+}
+
+.dashboard-info-label {
+  font-weight: 600;
+  color: #6B7280;
+  width: 150px;
+  font-size: 14px;
+}
+
+.dashboard-info-value {
+  color: #111827;
+  font-size: 14px;
+  flex: 1;
+}
+
+.dashboard-status-active {
+  color: #22C55E;
+  font-weight: 600;
+}
+
+.dashboard-loading {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 18px;
+  color: #6B7280;
+}
