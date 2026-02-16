@@ -21,10 +21,14 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', null, {
-        params: formData
+      // UPDATED: Send as JSON body instead of URL params
+      const response = await axios.post('http://localhost:8080/api/auth/login', formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
       
+      // Keep your original localStorage structure
       localStorage.setItem('user', JSON.stringify(response.data));
       
       alert('Login successful!');
