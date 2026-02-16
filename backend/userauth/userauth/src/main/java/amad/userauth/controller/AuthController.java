@@ -1,17 +1,19 @@
 package amad.userauth.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import amad.userauth.dto.LogoutRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import amad.userauth.dto.AuthResponse;
+import amad.userauth.dto.LoginRequest;
+import amad.userauth.dto.RegisterRequest;
 import amad.userauth.model.User;
 import amad.userauth.service.AuthService;
 
@@ -24,14 +26,14 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(
-            @RequestParam String firstName,
-            @RequestParam String lastName,
-            @RequestParam String email,
-            @RequestParam String password
-    ) {
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
         try {
-            User user = authService.registerUser(firstName, lastName, email, password);
+            User user = authService.registerUser(
+                    request.getFirstName(),
+                    request.getLastName(),
+                    request.getEmail(),
+                    request.getPassword()
+            );
             return ResponseEntity.ok("User registered successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -39,21 +41,17 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(
-            @RequestParam String email,
-            @RequestParam String password
-    ) {
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
         try {
-
-            String token = authService.login(email, password);
-
+            String token = authService.login(request.getEmail(), request.getPassword());
             User user = authService.getUserByToken(token);
 
-            Map<String, String> response = new HashMap<>();
-            response.put("token", token);
-            response.put("email", user.getEmail());
-            response.put("firstName", user.getFirstName());
-            response.put("lastName", user.getLastName());
+            AuthResponse response = new AuthResponse(
+                    token,
+                    user.getEmail(),
+                    user.getFirstName(),
+                    user.getLastName()
+            );
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -62,9 +60,12 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logoutUser(@RequestParam String token) {
+    public ResponseEntity<?> logoutUser(@RequestBody LogoutRequest request) {
         try {
-            authService.logout(token);
+            if (request.getToken() == null || request.getToken().isEmpty()) {
+                return ResponseEntity.badRequest().body("Token is required");
+            }
+            authService.logout(request.getToken());
             return ResponseEntity.ok("Logged out successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -24,21 +24,30 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+ 
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(formData.email)) {
+      setMessage('Please use a valid Gmail address (@gmail.com)');
+      return;
+    }
+
+
     if (formData.password !== formData.confirmPassword) {
       setMessage('Passwords do not match!');
       return;
     }
-
+    
     try {
-      await axios.post('http://localhost:8080/api/auth/register', null, {
-        params: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password
+  
+      const { confirmPassword, ...registrationData } = formData;
+      
+      const response = await axios.post('http://localhost:8080/api/auth/register', registrationData, {
+        headers: {
+          'Content-Type': 'application/json'
         }
       });
-      alert('Registration successful!');
+      
+      alert('Registration successful! Please login.');
       navigate('/login');
     } catch (error) {
       setMessage('Registration failed: ' + (error.response?.data || error.message));
@@ -96,7 +105,7 @@ function Register() {
             <input
               type="password"
               name="password"
-              placeholder="Create a password"
+              placeholder="Enter your password"
               value={formData.password}
               onChange={handleChange}
               required
@@ -109,7 +118,7 @@ function Register() {
             <input
               type="password"
               name="confirmPassword"
-              placeholder="Confirm your password"
+              placeholder="Re-enter your password"
               value={formData.confirmPassword}
               onChange={handleChange}
               required

@@ -21,14 +21,17 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', null, {
-        params: formData
-      });
-      
-      localStorage.setItem('user', JSON.stringify(response.data));
-      
-      alert('Login successful!');
-      navigate('/dashboard');
+      const response = await axios.post('http://localhost:8080/api/auth/login', formData, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    localStorage.setItem('token', response.data.token);
+    localStorage.setItem('user', JSON.stringify(response.data));
+
+    alert('Login successful!');
+    navigate('/dashboard');
     } catch (error) {
       setMessage('Login failed: ' + (error.response?.data || error.message));
     }
