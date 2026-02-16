@@ -17,7 +17,7 @@ import amad.userauth.service.AuthService;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://192.168.1.59:8080"})
 public class AuthController {
 
     @Autowired

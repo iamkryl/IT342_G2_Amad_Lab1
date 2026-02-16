@@ -10,6 +10,14 @@
 - Web Application (ReactJS) pages: Register, Login, Dashboard/Profile, Logout [commit: 6573215]
 - Backend endpoints implemented: /api/auth/register, /api/auth/login, /api/user/me [commit: 6573215]
 - Documentation (FRS Partial) updated with ERD, UML diagrams, and web UI screenshots [commit: 6573215]
+<<<<<<< Updated upstream
 
 ## TODO
 - Mobile application (to be done in next lab)
+=======
+- Added LogoutRequest DTO and standardized logout endpoint [commit: 5f89763]
+- Updated class diagram to include LogoutRequest DTO [commit: 5f89763]
+
+## 📱 IN PROGRESS
+- Mobile application
+>>>>>>> Stashed changes
