@@ -8,8 +8,7 @@ function Register() {
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -23,22 +22,15 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (formData.password !== formData.confirmPassword) {
-      setMessage('Passwords do not match!');
-      return;
-    }
-
     try {
-      await axios.post('http://localhost:8080/api/auth/register', null, {
-        params: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password
+      // UPDATED: Send as JSON body instead of URL params
+      const response = await axios.post('http://localhost:8080/api/auth/register', formData, {
+        headers: {
+          'Content-Type': 'application/json'
         }
       });
-      alert('Registration successful!');
+      
+      alert('Registration successful! Please login.');
       navigate('/login');
     } catch (error) {
       setMessage('Registration failed: ' + (error.response?.data || error.message));
@@ -96,21 +88,8 @@ function Register() {
             <input
               type="password"
               name="password"
-              placeholder="Create a password"
+              placeholder="Enter your password"
               value={formData.password}
-              onChange={handleChange}
-              required
-              className="register-input"
-            />
-          </div>
-
-          <div className="register-input-group">
-            <label className="register-label">Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm your password"
-              value={formData.confirmPassword}
               onChange={handleChange}
               required
               className="register-input"
