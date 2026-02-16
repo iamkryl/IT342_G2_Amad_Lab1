@@ -8,25 +8,29 @@ function Navbar() {
   const location = useLocation();
 
   const handleLogout = async () => {
-  try {
-    const token = localStorage.getItem('token');  // ← Get real token
-    
-    await axios.post('http://localhost:8080/api/auth/logout', null, {
-      params: { token: token }  // ← Send real token
-    });
-    
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    
-    alert('Logged out successfully!');
-    navigate('/login');
-  } catch (error) {
-    console.error('Logout error:', error);
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/login');
-  }
-};
+    try {
+      const token = localStorage.getItem('token');
+      
+      await axios.post('http://localhost:8080/api/auth/logout', {
+        token: token
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      
+      alert('Logged out successfully!');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/login');
+    }
+  };
 
   return (
     <nav className="navbar">
