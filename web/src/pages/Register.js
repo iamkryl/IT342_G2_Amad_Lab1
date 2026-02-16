@@ -8,7 +8,8 @@ function Register() {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
@@ -22,9 +23,25 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+ 
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(formData.email)) {
+      setMessage('Please use a valid Gmail address (@gmail.com)');
+      return;
+    }
+
+
+    if (formData.password !== formData.confirmPassword) {
+      setMessage('Passwords do not match!');
+      return;
+    }
+    
     try {
-      // UPDATED: Send as JSON body instead of URL params
-      const response = await axios.post('http://localhost:8080/api/auth/register', formData, {
+  
+      const { confirmPassword, ...registrationData } = formData;
+      
+      const response = await axios.post('http://localhost:8080/api/auth/register', registrationData, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -90,6 +107,19 @@ function Register() {
               name="password"
               placeholder="Enter your password"
               value={formData.password}
+              onChange={handleChange}
+              required
+              className="register-input"
+            />
+          </div>
+
+          <div className="register-input-group">
+            <label className="register-label">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Re-enter your password"
+              value={formData.confirmPassword}
               onChange={handleChange}
               required
               className="register-input"
