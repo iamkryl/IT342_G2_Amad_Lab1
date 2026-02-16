@@ -1,0 +1,12 @@
+# Ignore IDE files
+.idea/
+*.iml
+.vscode/
+
+# Ignore cache
+.idea/caches/
+node_modules/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
