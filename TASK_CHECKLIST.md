@@ -33,10 +33,10 @@
 - Implement Dashboard/Profile screen as a protected screen (accessible only when logged in) [commit: 3c95f67]
 - Implement Logout functionality that clears session and returns to Login screen [commit: 3c95f67]
 - Configure RetrofitClient with base URL pointing to Spring Boot backend [commit: 3c95f67]
-- Fix network configuration: updated BASE_URL from hardcoded local IP to emulator localhost (10.0.2.2) in RetrofitClient.kt [commit: <add new hash>]
-- Update network_security_config.xml to allow cleartext traffic for emulator localhost (10.0.2.2) [commit: <add new hash>]
+- Fix network configuration: updated BASE_URL from hardcoded local IP to emulator localhost (10.0.2.2) in RetrofitClient.kt [commit: a17b1935]
+- Update network_security_config.xml to allow cleartext traffic for emulator localhost (10.0.2.2) [commit: a17b1935]
 
 ### 📄 Documentation
 - Create partial FRS PDF with ERD, UML diagrams, and Web UI screenshots (Register, Login, Dashboard, Logout) [commit: 6573215]
 - Finalize FRS PDF with complete Web and Mobile UI screenshots and diagram revisions [commit: 3c95f67]
-- Export updated FRS PDF with revised version and submission date to /docs [commit: <add new hash>]
+- Export updated FRS PDF with revised version and submission date to /docs [commit: a17b1935]
